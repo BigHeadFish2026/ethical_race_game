@@ -115,10 +115,6 @@ The board should feel like a polished digital tabletop rather than a spreadsheet
 
 The host asks the room to vote A/B/C. The operator then selects the player's answer. The reveal animation becomes the teaching moment.
 
-Suggested transition line:
-
-> “You have seen the solution. Now let’s see what you would do in the situation.”
-
 ## 10. Part 6 → Part 7 Connection
 
 Part 6 explains what organisations should do.
