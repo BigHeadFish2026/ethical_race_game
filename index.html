@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>THE ETHICAL RACE · Business Ethics</title>
+  <meta name="description" content="A classroom mini-game about bribery, ethical decision-making and anti-corruption, based on the team's Siemens case study." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="ambient ambient-1"></div>
+  <div class="ambient ambient-2"></div>
+  <div class="noise"></div>
+
+  <main class="app-shell">
+    <section id="startScreen" class="screen start-screen">
+      <div class="hero-panel">
+        <div class="hero-copy">
+          <div class="eyebrow">BUSINESS ETHICS · ANTI-CORRUPTION</div>
+          <h1>THE ETHICAL <span>RACE</span></h1>
+          <p class="hero-subtitle">Every Choice Has a Consequence.</p>
+          <p class="hero-description">
+            Step into a high-pressure business environment. Roll the dice, face ethical dilemmas,
+            and learn what happens when bribery, weak controls and performance pressure collide.
+          </p>
+
+          <div class="hero-stats">
+            <div><strong>16</strong><span>CELLS</span></div>
+            <div><strong>1</strong><span>PLAYER</span></div>
+            <div><strong>5–7</strong><span>MINUTES</span></div>
+          </div>
+
+          <div class="start-note">
+            <span class="pulse-dot"></span>
+            <span>Built around the Siemens global bribery scandal case study</span>
+          </div>
+
+          <button id="startBtn" class="primary-btn">START THE RACE <span>→</span></button>
+          <p class="micro-note">The dice moves the story. Your decisions build or weaken trust.</p>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-card-bg"></div>
+          <div class="hero-glow"></div>
+          <img class="hero-art" src="assets/hero_office.svg" alt="" />
+          <div class="hero-token-wrap">
+            <img class="hero-token" src="assets/player_character.svg" alt="" />
+          </div>
+          <div class="hero-mini-card card-a">RISK<br><span>?</span></div>
+          <div class="hero-mini-card card-b">AUDIT<br><span>!</span></div>
+          <div class="hero-mini-card card-c">TRUST<br><span>↑</span></div>
+          <div class="hero-route-line"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen hidden">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <div class="brand-mark">ER</div>
+          <div>
+            <div class="brand-title">THE ETHICAL RACE</div>
+            <div class="brand-subtitle">Business Ethics · Anti-Corruption</div>
+          </div>
+        </div>
+        <div class="top-actions">
+          <div class="case-pill">SIEMENS CASE · 2008</div>
+          <button id="restartBtn" class="ghost-btn">↻ Restart</button>
+        </div>
+      </header>
+
+      <div class="game-layout">
+        <section class="board-card">
+          <div class="board-heading">
+            <div>
+              <div class="section-kicker">ONE PLAYER · SIXTEEN CELLS</div>
+              <h2>Roll. Decide. Learn. Move forward.</h2>
+            </div>
+            <div class="legend">
+              <span><i class="dot dot-question"></i> Ethical scenario</span>
+              <span><i class="dot dot-case"></i> Real case</span>
+              <span><i class="dot dot-finish"></i> Trust</span>
+            </div>
+          </div>
+
+          <div id="boardStage" class="board-stage">
+            <div class="board-path" aria-hidden="true">
+              <span class="path-segment path-s1"></span><span class="path-segment path-s2"></span>
+              <span class="path-segment path-s3"></span><span class="path-segment path-s4"></span>
+              <span class="path-segment path-s5"></span><span class="path-segment path-s6"></span>
+              <span class="path-segment path-s7"></span><span class="path-segment path-s8"></span>
+              <span class="path-segment path-s9"></span><span class="path-segment path-s10"></span>
+              <span class="path-segment path-s11"></span><span class="path-segment path-s12"></span>
+              <span class="path-segment path-s13"></span><span class="path-segment path-s14"></span>
+              <span class="path-segment path-s15"></span>
+            </div>
+            <div id="board" class="board"></div>
+            <div id="playerToken" class="player-token" aria-label="Player token">
+              <div class="token-shadow"></div>
+              <div class="token-ring"></div>
+              <img src="assets/player_character.svg" alt="Player token" />
+            </div>
+          </div>
+
+          <div class="board-footer">
+            <div class="position-readout">
+              <span>CURRENT POSITION</span>
+              <strong id="positionValue">1 / 16</strong>
+            </div>
+            <div class="roll-zone">
+              <div class="dice-wrap">
+                <div id="dice" class="dice" aria-label="Dice" role="img">
+                  <span class="die-dot d1"></span><span class="die-dot d2"></span><span class="die-dot d3"></span>
+                  <span class="die-dot d4"></span><span class="die-dot d5"></span><span class="die-dot d6"></span>
+                  <span class="die-dot d7"></span><span class="die-dot d8"></span><span class="die-dot d9"></span>
+                </div>
+                <div class="roll-caption">NEXT MOVE</div>
+              </div>
+              <button id="rollBtn" class="roll-btn">ROLL DICE <span>🎲</span></button>
+            </div>
+          </div>
+        </section>
+
+        <aside class="side-panel">
+          <div class="hud-card trust-card featured-hud">
+            <div class="hud-head"><span>TRUST SCORE</span><strong id="trustScore">60</strong></div>
+            <div class="meter"><span id="trustBar"></span></div>
+            <div class="meter-caption"><span>Ethical standing</span><span id="scoreCaption">Balanced</span></div>
+          </div>
+
+          <div class="hud-card progress-card">
+            <div class="hud-head"><span>ETHICAL DECISIONS</span><strong id="decisionCount">0</strong></div>
+            <div class="decision-mini"><span id="correctCount">0</span><small>Correct</small></div>
+            <div class="decision-mini"><span id="riskCount">0</span><small>Risky</small></div>
+            <div class="decision-mini"><span id="wrongCount">0</span><small>Wrong</small></div>
+            <div class="decision-mini"><span id="rollCount">0</span><small>Rolls Used</small></div>
+          </div>
+
+          <div class="hud-card lesson-card">
+            <div class="hud-head"><span>LAST LESSON</span></div>
+            <div id="lastLesson" class="lesson-text">Your first ethical decision is waiting.</div>
+          </div>
+
+          <div class="hud-card controls-card">
+            <div class="hud-head"><span>HOW TO PLAY</span></div>
+            <ol>
+              <li>Roll the dice to move along the board.</li>
+              <li>Landing on a scenario opens a decision.</li>
+              <li>Choose A, B or C and reveal the consequence.</li>
+              <li>Use the lesson to connect the choice to anti-corruption knowledge.</li>
+              <li>Reach the finish in fewer dice rolls to earn a higher Speed Bonus.</li>
+            </ol>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div id="modalBackdrop" class="modal-backdrop hidden">
+    <div id="scenarioModal" class="scenario-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button id="closeModalBtn" class="modal-close" aria-label="Close">×</button>
+      <div class="modal-illustration">
+        <div class="illustration-rings"></div>
+        <img id="modalImage" src="assets/gift_hospitality.svg" alt="Scenario illustration" />
+      </div>
+      <div class="modal-content">
+        <div class="modal-topline">
+          <span id="modalBadge" class="modal-badge">ETHICAL SCENARIO</span>
+          <span id="modalSource" class="modal-source">Report reference</span>
+        </div>
+        <div class="modal-kicker" id="modalKicker">SCENARIO</div>
+        <h3 id="modalTitle">Scenario</h3>
+        <p id="modalScenario" class="modal-scenario"></p>
+        <div id="caseStats" class="case-stats hidden"></div>
+        <div id="optionList" class="option-list"></div>
+        <div id="feedbackBox" class="feedback-box hidden">
+          <div class="feedback-header">
+            <span id="feedbackStatus" class="feedback-status">CORRECT</span>
+            <span id="feedbackMove" class="feedback-move"></span>
+          </div>
+          <div id="feedbackTitle" class="feedback-title"></div>
+          <p id="feedbackText" class="feedback-text"></p>
+          <div class="lesson-block">
+            <div class="lesson-label">KEY LESSON</div>
+            <div id="lessonText" class="lesson-main"></div>
+          </div>
+          <button id="continueBtn" class="primary-btn compact">CONTINUE <span>→</span></button>
+        </div>
+        <div id="infoActions" class="info-actions hidden">
+          <button id="continueInfoBtn" class="primary-btn compact">CONTINUE <span>→</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <div id="fxLayer" class="fx-layer" aria-hidden="true">
+    <canvas id="fxCanvas" class="fx-canvas"></canvas>
+    <div id="fxTint" class="fx-tint"></div>
+    <div id="fxFreeze" class="fx-freeze"></div>
+    <div id="glassCrack" class="glass-crack">
+      <span class="crack c1"></span><span class="crack c2"></span><span class="crack c3"></span>
+      <span class="crack c4"></span><span class="crack c5"></span><span class="crack c6"></span>
+    </div>
+    <div id="inkSplash" class="ink-splash">
+      <span class="ink-blob b1"></span><span class="ink-blob b2"></span><span class="ink-blob b3"></span>
+    </div>
+    <div id="fxItems" class="fx-items"></div>
+  </div>
+
+  <div id="endOverlay" class="end-overlay hidden pre-reveal">
+    <div class="end-card">
+      <div class="end-glow"></div>
+      <img src="assets/trust_victory.svg" class="end-art" alt="Trust victory" />
+      <div class="section-kicker">FINAL RESULT</div>
+      <h2 id="endTitle">TRUST BUILDER</h2>
+      <p id="endSubtitle"></p>
+      <div class="result-grid">
+        <div><strong id="resultEthics">0%</strong><span>Ethical Accuracy</span></div>
+        <div><strong id="resultTrust">60</strong><span>Base Trust</span></div>
+        <div><strong id="resultSpeedBonus">+0</strong><span>Speed Bonus</span></div>
+        <div><strong id="resultFinalTrust">60</strong><span>Final Trust</span></div>
+        <div><strong id="resultAnswered">0</strong><span>Scenarios Answered</span></div>
+        <div><strong id="resultRolls">0</strong><span>Dice Rolls</span></div>
+      </div>
+      <div id="endMessage" class="end-message"></div>
+      <div class="end-quote">Integrity guides ethical choices. Accountability builds trust. Trust supports a fairer society.</div>
+      <button id="playAgainBtn" class="primary-btn">PLAY AGAIN <span>↻</span></button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
